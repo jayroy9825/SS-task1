@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-1
+    </title>
+    
+
+    <style>
+        table,caption {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+    td,th{
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      
+    tr:nth-child(even){background-color: #E8E7D6;}
+      
+    tr:hover {background-color: #ddd;}
+      
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #6C6C6C;
+        color: white;
+      }
+    caption{
+        font-size: 20pt;
+        padding: 18px;
+        color: #6D5400;
+    }
+    </style>
+
+</head>
+<body>
+    <script>
+        fetch("https://s3.amazonaws.com/open-to-cors/assignment.json")
+        .then(function(res){
+            return res.json();
+        })
+        .then(function(data){
+           var temp='';
+           var data=Object.values(data);
+            var prod = Object.values(data[1]);
+            var sorteddata = prod.sort(function(a,b){return b.popularity-a.popularity;});
+             for(i in sorteddata){
+                temp += "<tr>"
+                temp += "<td>"+sorteddata[i].title+"</td>"
+                temp += "<td>"+sorteddata[i].price+"</td>"
+                temp += "<td>"+sorteddata[i].popularity+"</td></tr>"
+            }
+            document.getElementById("data").innerHTML = temp;
+        })
+
+
+        
+
+    </script>
+    <table class="table">
+        <caption>Title & Price ordered based on the descending Popularity</caption>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Popularity</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+        </tbody>
+    </table>
+</body>
+
+</html>
